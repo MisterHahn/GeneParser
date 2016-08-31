@@ -35,11 +35,11 @@ class Parser:
                 id = line[line.find("ZDB"):line.find(">", line.find("ZDB"))]
                 result = self.search_file(self.ZDB_DIR, id, 3)
 
-            if line.find("MGI") != -1:
+            elif line.find("MGI") != -1:
                 id = line[line.find("MGI"):line.find(">", line.find("MGI"))]
                 result = self.search_file(self.MGI_DIR, id, 10)
 
-            if line.find("nih") != -1:
+            elif line.find("nih") != -1:
                 nih_id_start_index = line.find("/", line.find("gene")) + 1
                 id = line[nih_id_start_index:line.find(">", nih_id_start_index)]
                 result = self.search_file(self.NIH_DIR, id, 2)
