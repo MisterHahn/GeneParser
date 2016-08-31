@@ -28,24 +28,28 @@ class Parser:
     def read_source(self):
 
         for line in self.source:
-            id = None
+            search_id = None
+            print_id = None
             result = None
 
             if line.find("ZDB") != -1:
-                id = line[line.find("ZDB"):line.find(">", line.find("ZDB"))]
-                result = self.search_file(self.ZDB_DIR, id, 3)
+                search_id = line[line.find("ZDB"):line.find(">", line.find("ZDB"))]
+                print_id = line[1:line.find(">", 1)]
+                result = self.search_file(self.ZDB_DIR, search_id, 3)
 
             elif line.find("MGI") != -1:
-                id = line[line.find("MGI"):line.find(">", line.find("MGI"))]
-                result = self.search_file(self.MGI_DIR, id, 10)
+                search_id = line[line.find("MGI"):line.find(">", line.find("MGI"))]
+                print_id = line[1:line.find(">", 1)]
+                result = self.search_file(self.MGI_DIR, search_id, 10)
 
             elif line.find("nih") != -1:
                 nih_id_start_index = line.find("/", line.find("gene")) + 1
-                id = line[nih_id_start_index:line.find(">", nih_id_start_index)]
-                result = self.search_file(self.NIH_DIR, id, 2)
+                search_id = line[nih_id_start_index:line.find(">", nih_id_start_index)]
+                print_id = line[1:line.find(">", 1)]
+                result = self.search_file(self.NIH_DIR, search_id, 2)
 
-            if id is not None:
-                self.output_result(id, result)
+            if print_id is not None:
+                self.output_result(print_id, result)
 
     def search_file(self, path, key, col):
         s_file = open(path, "r")
