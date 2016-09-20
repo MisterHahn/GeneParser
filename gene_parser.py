@@ -57,9 +57,12 @@ class Parser:
                 print_id = line[1:line.find(">", 1)]
                 result = self.search_file(self.NIH_DIR, search_id, 2)
 
+            # For XB-Gene, use the gene name in col 1 from the source file. Using the ID from col 0 did not yield any
+            # results in the search file.
             elif line.find("XB-GENE") != -1:
-                raw_search_id = line[line.find("XB"):line.find(">", line.find("XB"))]
-                search_id = "XB-GENE-" + raw_search_id[12:]
+                # raw_search_id = line[line.find("XB"):line.find(">", line.find("XB"))]
+                # search_id = "XB-GENE-" + raw_search_id[12:]
+                search_id = line[line.find("\"", line.find("XB-GENE")) + 1:line.find("\"", line.find("\"") + 1)]
                 print_id = line[1:line.find(">", 1)]
                 result = self.search_file(self.XB_DIR, search_id, 3)
 
